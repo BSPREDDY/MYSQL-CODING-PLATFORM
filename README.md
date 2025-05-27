@@ -1,4 +1,4 @@
-**SQL Coding Platform - Educational Learning System**
+**SQL Coding Platform**
 
 This is a comprehensive web application designed for learning and practicing SQL through interactive coding challenges. Students can solve SQL problems in a built-in code editor with real-time query execution and instant feedback. The platform features a contest system where users can participate in timed coding competitions with leaderboards and scoring.
 
