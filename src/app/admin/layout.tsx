@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d762d5a (premium pages updated)
 // "use client";
 
 // import type React from "react";
@@ -501,6 +504,19 @@ function AdminSidebar({
                     </SidebarMenuSubButton>
                   </SidebarMenuSubItem>
                   <SidebarMenuSubItem>
+<<<<<<< HEAD
+=======
+                    <SidebarMenuSubButton asChild isActive={pathname === "/admin/premium/problems"}>
+                      <Link href="/admin/premium/problems">Premium Problems</Link>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton asChild isActive={pathname === "/admin/premium/categories"}>
+                      <Link href="/admin/premium/categories">Problem Categories</Link>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+>>>>>>> d762d5a (premium pages updated)
                     <SidebarMenuSubButton asChild isActive={pathname === "/admin/premium/payments"}>
                       <Link href="/admin/premium/payments">Payment History</Link>
                     </SidebarMenuSubButton>
@@ -537,6 +553,7 @@ function AdminSidebar({
       </SidebarFooter>
     </Sidebar>
   )
+<<<<<<< HEAD
 =======
 "use client";
 
@@ -811,4 +828,6 @@ function AdminSidebar({
 		</Sidebar>
 	);
 >>>>>>> 566240bfafa1c422230e3fc1a6e51217f6e7c72a
+=======
+>>>>>>> d762d5a (premium pages updated)
 }

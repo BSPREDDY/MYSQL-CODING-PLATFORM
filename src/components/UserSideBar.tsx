@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d762d5a (premium pages updated)
 // "use client";
 
 // import type React from "react";
@@ -84,6 +87,7 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { FileCode, Trophy, User, Crown } from "lucide-react"
 import LogoutForm from "./LogoutForm"
+<<<<<<< HEAD
 import { PremiumBadge } from "@/components/PremiumBadge"
 =======
 "use client";
@@ -102,11 +106,17 @@ import {
 } from "lucide-react";
 import LogoutForm from "./LogoutForm";
 >>>>>>> 566240bfafa1c422230e3fc1a6e51217f6e7c72a
+=======
+import { PremiumBadge } from "./PremiumBadge"
+>>>>>>> d762d5a (premium pages updated)
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserSidebar({ className }: SidebarNavProps) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d762d5a (premium pages updated)
   const pathname = usePathname()
 
   const routes = [
@@ -133,6 +143,21 @@ export function UserSidebar({ className }: SidebarNavProps) {
       icon: Crown,
       href: "/user/premium",
       active: pathname === "/user/premium" || pathname.startsWith("/user/premium/"),
+<<<<<<< HEAD
+=======
+      submenu: [
+        {
+          label: "Subscription",
+          href: "/user/premium",
+          active: pathname === "/user/premium",
+        },
+        {
+          label: "Premium Problems",
+          href: "/user/premium/problems",
+          active: pathname === "/user/premium/problems" || pathname.startsWith("/user/premium/problems/"),
+        },
+      ],
+>>>>>>> d762d5a (premium pages updated)
     },
   ]
 
@@ -146,6 +171,7 @@ export function UserSidebar({ className }: SidebarNavProps) {
           </div>
           <div className="space-y-1">
             {routes.map((route) => (
+<<<<<<< HEAD
               <Link
                 key={route.href}
                 href={route.href}
@@ -157,6 +183,36 @@ export function UserSidebar({ className }: SidebarNavProps) {
                 <route.icon className="h-4 w-4" />
                 {route.label}
               </Link>
+=======
+              <div key={route.href}>
+                <Link
+                  href={route.href}
+                  className={cn(
+                    "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all hover:bg-accent",
+                    route.active ? "bg-accent text-accent-foreground" : "text-muted-foreground",
+                  )}
+                >
+                  <route.icon className="h-4 w-4" />
+                  {route.label}
+                </Link>
+                {route.submenu && route.active && (
+                  <div className="ml-6 mt-1 space-y-1">
+                    {route.submenu.map((subRoute) => (
+                      <Link
+                        key={subRoute.href}
+                        href={subRoute.href}
+                        className={cn(
+                          "flex items-center rounded-lg px-3 py-1 text-xs font-medium transition-all hover:bg-accent",
+                          subRoute.active ? "bg-accent text-accent-foreground" : "text-muted-foreground",
+                        )}
+                      >
+                        {subRoute.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+>>>>>>> d762d5a (premium pages updated)
             ))}
           </div>
         </div>
@@ -166,6 +222,7 @@ export function UserSidebar({ className }: SidebarNavProps) {
       </div>
     </div>
   )
+<<<<<<< HEAD
 =======
 	const pathname = usePathname();
 
@@ -222,4 +279,6 @@ export function UserSidebar({ className }: SidebarNavProps) {
 		</div>
 	);
 >>>>>>> 566240bfafa1c422230e3fc1a6e51217f6e7c72a
+=======
+>>>>>>> d762d5a (premium pages updated)
 }

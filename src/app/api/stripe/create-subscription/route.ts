@@ -73,3 +73,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Failed to create subscription" }, { status: 500 })
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d762d5a (premium pages updated)

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d762d5a (premium pages updated)
 // import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 // import "./globals.css";
@@ -35,7 +38,10 @@
 // 	);
 // }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d762d5a (premium pages updated)
 import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
@@ -75,6 +81,7 @@ export default function RootLayout({
       </body>
     </html>
   )
+<<<<<<< HEAD
 =======
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -111,4 +118,6 @@ export default function RootLayout({
 		</html>
 	);
 >>>>>>> 566240bfafa1c422230e3fc1a6e51217f6e7c72a
+=======
+>>>>>>> d762d5a (premium pages updated)
 }

@@ -1,6 +1,10 @@
 "use client"
 
+<<<<<<< HEAD
 import { usePremium } from "../contexts/PremiumContext"
+=======
+import { usePremium } from "@/contexts/PremiumContext"
+>>>>>>> d762d5a (premium pages updated)
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 

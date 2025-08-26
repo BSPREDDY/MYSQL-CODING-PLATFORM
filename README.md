@@ -10,10 +10,14 @@ npm run dev
 yarn dev
 # or
 <<<<<<< HEAD
+<<<<<<< HEAD
 pnpm dev
 =======
 pnpm run dev
 >>>>>>> 566240bfafa1c422230e3fc1a6e51217f6e7c72a
+=======
+pnpm dev
+>>>>>>> d762d5a (premium pages updated)
 # or
 bun dev
 ```

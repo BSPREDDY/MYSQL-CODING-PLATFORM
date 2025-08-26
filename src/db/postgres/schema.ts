@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d762d5a (premium pages updated)
 // import {
 // 	pgTable,
 // 	uuid,
@@ -248,6 +251,10 @@
 // export type NewContestAccess = InferInsertModel<typeof contestAccess>;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d762d5a (premium pages updated)
 import {
   pgTable,
   uuid,
@@ -259,6 +266,10 @@ import {
   integer,
   primaryKey,
   doublePrecision,
+<<<<<<< HEAD
+=======
+  serial
+>>>>>>> d762d5a (premium pages updated)
 } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 import type { InferInsertModel } from "drizzle-orm"
@@ -273,6 +284,10 @@ export const contestVisibility = pgEnum("contest_visibility", ["public", "privat
 export const subscriptionStatus = pgEnum("subscription_status", ["active", "canceled", "expired", "pending"])
 export const paymentStatus = pgEnum("payment_status", ["pending", "completed", "failed", "refunded"])
 export const planInterval = pgEnum("plan_interval", ["month", "year"])
+<<<<<<< HEAD
+=======
+export const problemType = pgEnum("problem_type", ["free", "premium"])
+>>>>>>> d762d5a (premium pages updated)
 
 // Tables
 export const users = pgTable("users", {
@@ -299,6 +314,12 @@ export const problems = pgTable("problems", {
   hidden: boolean("hidden").default(false),
   sqlBoilerplate: text("sql_boilerplate").notNull(), // Default SQL boilerplate code
   sqlSolution: text("sql_solution").notNull(), // Solution in SQL
+<<<<<<< HEAD
+=======
+  type: problemType("type").default("free").notNull(),
+  isPremium: boolean("is_premium").default(false).notNull(),
+  premiumDescription: text("premium_description"), // Additional description for premium features
+>>>>>>> d762d5a (premium pages updated)
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at"),
 })
@@ -427,7 +448,10 @@ export const contestPoints = pgTable(
     userId: uuid("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
+<<<<<<< HEAD
 
+=======
+>>>>>>> d762d5a (premium pages updated)
     pointsEarned: integer("points_earned").default(0).notNull(),
     updatedAt: timestamp("updated_at").default(sql`now()`).notNull(),
   },
@@ -456,6 +480,7 @@ export const contestAccess = pgTable(
   (table) => [primaryKey({ columns: [table.contestId, table.userId] })],
 )
 
+<<<<<<< HEAD
 export const subscriptionPlans = pgTable("subscription_plans", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: varchar("name", { length: 100 }).notNull(),
@@ -467,6 +492,35 @@ export const subscriptionPlans = pgTable("subscription_plans", {
   stripePriceId: text("stripe_price_id"),
   isActive: boolean("is_active").default(true).notNull(),
   features: text("features"), // JSON string of features
+=======
+// export const subscriptionPlans = pgTable("subscription_plans", {
+//   id: uuid("id").defaultRandom().primaryKey(),
+//   name: varchar("name", { length: 100 }).notNull(),
+//   description: text("description"),
+//   price: doublePrecision("price").notNull(), // Price in cents
+//   currency: varchar("currency", { length: 3 }).default("usd").notNull(),
+//   interval: planInterval("interval").notNull(),
+//   intervalCount: integer("interval_count").default(1).notNull(), // e.g., 1 month, 3 months, 1 year
+//   stripePriceId: text("stripe_price_id"),
+//   isActive: boolean("is_active").default(true).notNull(),
+//   features: text("features"), // JSON string of features
+//   createdAt: timestamp("created_at").defaultNow().notNull(),
+//   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+// })
+
+
+export const subscriptionPlans = pgTable("subscription_plans", {
+  id: serial("id").primaryKey(), // auto-increment
+  name: varchar("name", { length: 100 }).notNull(),
+  description: text("description"),
+  price: integer("price").notNull(), // stored in cents
+  currency: varchar("currency", { length: 10 }).default("usd").notNull(),
+  interval: varchar("interval", { length: 10 }).notNull(), // "month" | "year"
+  intervalCount: integer("interval_count").default(1).notNull(),
+  stripePriceId: varchar("stripe_price_id", { length: 255 }),
+  isActive: boolean("is_active").default(true).notNull(),
+  features: text("features"), // JSON string
+>>>>>>> d762d5a (premium pages updated)
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 })
@@ -504,6 +558,70 @@ export const payments = pgTable("payments", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 })
 
+<<<<<<< HEAD
+=======
+// New table for plan-specific problems
+export const premiumProblems = pgTable("premium_problems", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  problemId: uuid("problem_id")
+    .notNull()
+    .references(() => problems.id, { onDelete: "cascade" }),
+  planId: uuid("plan_id")
+    .notNull()
+    .references(() => subscriptionPlans.id, { onDelete: "cascade" }),
+  isActive: boolean("is_active").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+})
+
+// New table for tracking user access to premium problems
+export const userPremiumAccess = pgTable("user_premium_access", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  problemId: uuid("problem_id")
+    .notNull()
+    .references(() => problems.id, { onDelete: "cascade" }),
+  subscriptionId: uuid("subscription_id")
+    .notNull()
+    .references(() => userSubscriptions.id, { onDelete: "cascade" }),
+  grantedAt: timestamp("granted_at").defaultNow().notNull(),
+  expiresAt: timestamp("expires_at"),
+  isActive: boolean("is_active").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+})
+
+// New table for premium problem categories
+export const premiumCategories = pgTable("premium_categories", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: varchar("name", { length: 100 }).notNull(),
+  description: text("description"),
+  icon: varchar("icon", { length: 50 }), // Icon name for UI
+  color: varchar("color", { length: 20 }), // Color theme for category
+  sortOrder: integer("sort_order").default(0).notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+})
+
+// New table for relationship between premium problems and categories
+export const premiumProblemCategories = pgTable(
+  "premium_problem_categories",
+  {
+    problemId: uuid("problem_id")
+      .notNull()
+      .references(() => problems.id, { onDelete: "cascade" }),
+    categoryId: uuid("category_id")
+      .notNull()
+      .references(() => premiumCategories.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.problemId, table.categoryId] })],
+)
+
+>>>>>>> d762d5a (premium pages updated)
 // Types
 export type NewUser = InferInsertModel<typeof users>
 export type NewProblem = InferInsertModel<typeof problems>
@@ -520,6 +638,7 @@ export type NewContestAccess = InferInsertModel<typeof contestAccess>
 export type NewSubscriptionPlan = InferInsertModel<typeof subscriptionPlans>
 export type NewUserSubscription = InferInsertModel<typeof userSubscriptions>
 export type NewPayment = InferInsertModel<typeof payments>
+<<<<<<< HEAD
 =======
 import {
 	pgTable,
@@ -769,3 +888,9 @@ export type NewContestSubmission = InferInsertModel<typeof contestSubmission>;
 export type NewContestPoint = InferInsertModel<typeof contestPoints>;
 export type NewContestAccess = InferInsertModel<typeof contestAccess>;
 >>>>>>> 566240bfafa1c422230e3fc1a6e51217f6e7c72a
+=======
+export type NewPremiumProblem = InferInsertModel<typeof premiumProblems>
+export type NewUserPremiumAccess = InferInsertModel<typeof userPremiumAccess>
+export type NewPremiumCategory = InferInsertModel<typeof premiumCategories>
+export type NewPremiumProblemCategory = InferInsertModel<typeof premiumProblemCategories>
+>>>>>>> d762d5a (premium pages updated)

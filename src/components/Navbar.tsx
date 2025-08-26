@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d762d5a (premium pages updated)
 // import { verifySession } from "@/app/actions/session";
 // import Link from "next/link";
 // import {
@@ -159,6 +162,7 @@ export default async function Navbar() {
       </div>
     </div>
   )
+<<<<<<< HEAD
 =======
 import { verifySession } from "@/app/actions/session";
 import Link from "next/link";
@@ -251,4 +255,6 @@ export default async function Navbar() {
 		</div>
 	);
 >>>>>>> 566240bfafa1c422230e3fc1a6e51217f6e7c72a
+=======
+>>>>>>> d762d5a (premium pages updated)
 }
