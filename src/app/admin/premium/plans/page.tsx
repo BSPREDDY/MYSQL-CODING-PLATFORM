@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 // "use client"
 
 // import type React from "react"
@@ -366,7 +365,6 @@
 // }
 
 
->>>>>>> d762d5a (premium pages updated)
 "use client"
 
 import type React from "react"
@@ -408,10 +406,7 @@ interface SubscriptionPlan {
   updatedAt: string
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> d762d5a (premium pages updated)
 export default function SubscriptionPlansPage() {
   const [plans, setPlans] = useState<SubscriptionPlan[]>([])
   const [loading, setLoading] = useState(true)
@@ -460,12 +455,9 @@ export default function SubscriptionPlansPage() {
         features,
       }
 
-<<<<<<< HEAD
       const url = editingPlan ? "/api/admin/subscription-plans" : "/api/admin/subscription-plans"
 
-=======
       const url = "/api/admin/subscription-plans"
->>>>>>> d762d5a (premium pages updated)
       const method = editingPlan ? "PUT" : "POST"
 
       if (editingPlan) {
@@ -485,20 +477,17 @@ export default function SubscriptionPlansPage() {
         resetForm()
         fetchPlans()
       } else {
-<<<<<<< HEAD
         throw new Error("Failed to save plan")
       }
     } catch (error) {
       console.error("Error saving plan:", error)
       toast.error("Failed to save plan")
-=======
         const errorData = await response.json()
         throw new Error(errorData.error || "Failed to save plan")
       }
     } catch (error) {
       console.error("Error saving plan:", error)
       toast.error(error instanceof Error ? error.message : "Failed to save plan")
->>>>>>> d762d5a (premium pages updated)
     }
   }
 
