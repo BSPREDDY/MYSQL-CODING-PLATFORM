@@ -1,10 +1,8 @@
-<<<<<<< HEAD
-import { type NextRequest, NextResponse } from "next/server"
-import { stripe } from "@/lib/stripe"
-import { appDb } from "@/db/postgres"
-import { users, userSubscriptions, payments } from "@/db/postgres/schema"
-import { eq } from "drizzle-orm"
-=======
+// import { type NextRequest, NextResponse } from "next/server"
+// import { stripe } from "@/lib/stripe"
+// import { appDb } from "@/db/postgres"
+// import { users, userSubscriptions, payments } from "@/db/postgres/schema"
+// import { eq } from "drizzle-orm"
 // import { type NextRequest, NextResponse } from "next/server"
 // import { stripe } from "@/lib/stripe"
 // import { appDb } from "@/appDb/postgres"
@@ -161,7 +159,6 @@ import { stripe } from "@/lib/stripe"
 import { appDb } from "@/db/postgres"
 import { users, userSubscriptions, payments, userPremiumAccess, premiumProblems } from "@/db/postgres/schema"
 import { eq, and } from "drizzle-orm"
->>>>>>> d762d5a (premium pages updated)
 import type Stripe from "stripe"
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
@@ -228,11 +225,8 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
   const currentPeriodEnd = new Date(subscription.current_period_end * 1000)
 
   // Update subscription status
-<<<<<<< HEAD
   await appDb
-=======
   const [updatedSubscription] = await appDb
->>>>>>> d762d5a (premium pages updated)
     .update(userSubscriptions)
     .set({
       status,
@@ -242,10 +236,8 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
       updatedAt: new Date(),
     })
     .where(eq(userSubscriptions.stripeSubscriptionId, subscription.id))
-<<<<<<< HEAD
-=======
+
     .returning()
->>>>>>> d762d5a (premium pages updated)
 
   // Update user premium status
   const isPremium = status === "active"
@@ -258,15 +250,13 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
       premiumExpiresAt,
     })
     .where(eq(users.id, userId))
-<<<<<<< HEAD
-=======
+
 
   if (status === "active" && updatedSubscription) {
     await grantPremiumProblemAccess(userId, updatedSubscription.id, updatedSubscription.planId, currentPeriodEnd)
   } else if (status === "canceled" || status === "expired") {
     await revokePremiumProblemAccess(userId)
   }
->>>>>>> d762d5a (premium pages updated)
 }
 
 async function handleSubscriptionCancellation(subscription: Stripe.Subscription) {
@@ -277,11 +267,8 @@ async function handleSubscriptionCancellation(subscription: Stripe.Subscription)
     .update(userSubscriptions)
     .set({
       status: "canceled",
-<<<<<<< HEAD
       canceledAt: new Date(),
-=======
       canceledAt: new Date(),   
->>>>>>> d762d5a (premium pages updated)
       updatedAt: new Date(),
     })
     .where(eq(userSubscriptions.stripeSubscriptionId, subscription.id))
@@ -293,11 +280,8 @@ async function handleSubscriptionCancellation(subscription: Stripe.Subscription)
       premiumExpiresAt: null,
     })
     .where(eq(users.id, userId))
-<<<<<<< HEAD
-=======
 
   await revokePremiumProblemAccess(userId)
->>>>>>> d762d5a (premium pages updated)
 }
 
 async function handlePaymentSuccess(invoice: Stripe.Invoice) {
@@ -314,8 +298,7 @@ async function handlePaymentSuccess(invoice: Stripe.Invoice) {
       status: "completed",
       description: `Payment for subscription ${subscriptionId}`,
     })
-<<<<<<< HEAD
-=======
+
 
     const userSub = await appDb
       .select()
@@ -326,7 +309,6 @@ async function handlePaymentSuccess(invoice: Stripe.Invoice) {
     if (userSub.length > 0 && userSub[0].status === "active") {
       await grantPremiumProblemAccess(userId, userSub[0].id, userSub[0].planId, userSub[0].currentPeriodEnd)
     }
->>>>>>> d762d5a (premium pages updated)
   }
 }
 
@@ -345,8 +327,7 @@ async function handlePaymentFailure(invoice: Stripe.Invoice) {
     })
   }
 }
-<<<<<<< HEAD
-=======
+
 
 async function grantPremiumProblemAccess(userId: string, subscriptionId: string, planId: string, expiresAt: Date) {
   try {
@@ -418,4 +399,3 @@ async function revokePremiumProblemAccess(userId: string) {
     console.error("Error revoking premium problem access:", error)
   }
 }
->>>>>>> d762d5a (premium pages updated)
