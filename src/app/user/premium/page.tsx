@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 // "use client"
 
 // import { useState, useEffect } from "react"
@@ -414,26 +413,21 @@
 // }
 
 
->>>>>>> d762d5a (premium pages updated)
 "use client"
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-<<<<<<< HEAD
 import { Check, Crown, Zap, Star } from "lucide-react"
-=======
+
 import { Check, Crown, Zap, Star, AlertCircle, Loader2 } from "lucide-react"
->>>>>>> d762d5a (premium pages updated)
 import { toast } from "sonner"
 import { loadStripe } from "@stripe/stripe-js"
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { usePremium } from "@/contexts/PremiumContext"
-<<<<<<< HEAD
-=======
+
 import { Alert, AlertDescription } from "@/components/ui/alert"
->>>>>>> d762d5a (premium pages updated)
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -477,10 +471,8 @@ function PremiumContent() {
   const [plans, setPlans] = useState<SubscriptionPlan[]>([])
   const [currentSubscription, setCurrentSubscription] = useState<UserSubscription | null>(null)
   const [loading, setLoading] = useState(true)
-<<<<<<< HEAD
-=======
+
   const [plansError, setPlansError] = useState<string | null>(null)
->>>>>>> d762d5a (premium pages updated)
   const [processingPayment, setProcessingPayment] = useState(false)
   const [selectedPlan, setSelectedPlan] = useState<SubscriptionPlan | null>(null)
 
@@ -496,7 +488,6 @@ function PremiumContent() {
 
   const fetchPlans = async () => {
     try {
-<<<<<<< HEAD
       const response = await fetch("/api/admin/subscription-plans")
       if (response.ok) {
         const data = await response.json()
@@ -504,7 +495,6 @@ function PremiumContent() {
       }
     } catch (error) {
       console.error("Error fetching plans:", error)
-=======
       console.log("[v0] Fetching subscription plans...")
       const response = await fetch("/api/user/subscription-plans")
 
@@ -529,14 +519,12 @@ function PremiumContent() {
     } catch (error) {
       console.error("[v0] Error fetching plans:", error)
       setPlansError("Unable to load subscription plans. Please try again later.")
->>>>>>> d762d5a (premium pages updated)
       toast.error("Failed to load subscription plans")
     }
   }
 
   const fetchCurrentSubscription = async () => {
     try {
-<<<<<<< HEAD
       const response = await fetch("/api/user/subscription")
       if (response.ok) {
         const data = await response.json()
@@ -544,7 +532,6 @@ function PremiumContent() {
       }
     } catch (error) {
       console.error("Error fetching subscription:", error)
-=======
       console.log("[v0] Fetching current subscription...")
       const response = await fetch("/api/user/subscription")
       if (response.ok) {
@@ -556,7 +543,6 @@ function PremiumContent() {
       }
     } catch (error) {
       console.error("[v0] Error fetching subscription:", error)
->>>>>>> d762d5a (premium pages updated)
     } finally {
       setLoading(false)
     }
@@ -568,23 +554,18 @@ function PremiumContent() {
       return
     }
 
-<<<<<<< HEAD
-=======
     if (!plan.stripePriceId) {
       toast.error("This plan is not properly configured for payments")
       return
     }
 
->>>>>>> d762d5a (premium pages updated)
     setProcessingPayment(true)
     setSelectedPlan(plan)
 
     try {
-<<<<<<< HEAD
-=======
+
       console.log("[v0] Starting subscription process for plan:", plan.name)
 
->>>>>>> d762d5a (premium pages updated)
       // Get current user
       const userResponse = await fetch("/api/user/current")
       if (!userResponse.ok) {
@@ -603,12 +584,9 @@ function PremiumContent() {
       })
 
       if (!subscriptionResponse.ok) {
-<<<<<<< HEAD
         throw new Error("Failed to create subscription")
-=======
         const errorData = await subscriptionResponse.json()
         throw new Error(errorData.error || "Failed to create subscription")
->>>>>>> d762d5a (premium pages updated)
       }
 
       const { clientSecret } = await subscriptionResponse.json()
@@ -624,19 +602,14 @@ function PremiumContent() {
         throw new Error(error.message)
       }
 
-<<<<<<< HEAD
-=======
+
       console.log("[v0] Subscription successful")
->>>>>>> d762d5a (premium pages updated)
       toast.success("Successfully subscribed to premium!")
       fetchCurrentSubscription()
       await refreshPremiumStatus()
     } catch (error) {
-<<<<<<< HEAD
       console.error("Subscription error:", error)
-=======
       console.error("[v0] Subscription error:", error)
->>>>>>> d762d5a (premium pages updated)
       toast.error(error instanceof Error ? error.message : "Failed to subscribe")
     } finally {
       setProcessingPayment(false)
@@ -648,10 +621,8 @@ function PremiumContent() {
     if (!currentSubscription) return
 
     try {
-<<<<<<< HEAD
-=======
+
       console.log("[v0] Canceling subscription:", currentSubscription.id)
->>>>>>> d762d5a (premium pages updated)
       const response = await fetch("/api/stripe/cancel-subscription", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -666,20 +637,17 @@ function PremiumContent() {
         fetchCurrentSubscription()
         await refreshPremiumStatus()
       } else {
-<<<<<<< HEAD
         throw new Error("Failed to cancel subscription")
       }
     } catch (error) {
       console.error("Cancel error:", error)
       toast.error("Failed to cancel subscription")
-=======
         const errorData = await response.json()
         throw new Error(errorData.error || "Failed to cancel subscription")
       }
     } catch (error) {
       console.error("[v0] Cancel error:", error)
       toast.error(error instanceof Error ? error.message : "Failed to cancel subscription")
->>>>>>> d762d5a (premium pages updated)
     }
   }
 
@@ -719,7 +687,6 @@ function PremiumContent() {
   if (loading) {
     return (
       <div className="container mx-auto p-6">
-<<<<<<< HEAD
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-gray-200 rounded w-1/4"></div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -727,11 +694,10 @@ function PremiumContent() {
               <div key={i} className="h-64 bg-gray-200 rounded"></div>
             ))}
           </div>
-=======
+
         <div className="flex items-center justify-center py-12">
           <Loader2 className="h-8 w-8 animate-spin" />
           <span className="ml-2">Loading premium plans...</span>
->>>>>>> d762d5a (premium pages updated)
         </div>
       </div>
     )
@@ -749,8 +715,7 @@ function PremiumContent() {
         </p>
       </div>
 
-<<<<<<< HEAD
-=======
+
       {plansError && (
         <Alert>
           <AlertCircle className="h-4 w-4" />
@@ -763,7 +728,6 @@ function PremiumContent() {
         </Alert>
       )}
 
->>>>>>> d762d5a (premium pages updated)
       {/* Current Subscription Status */}
       {currentSubscription && (
         <Card className="border-yellow-200 bg-yellow-50">
@@ -800,7 +764,6 @@ function PremiumContent() {
       )}
 
       {/* Subscription Plans */}
-<<<<<<< HEAD
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {plans.map((plan) => {
           const features = plan.features ? JSON.parse(plan.features) : []
@@ -863,7 +826,7 @@ function PremiumContent() {
           )
         })}
       </div>
-=======
+
       {plans.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.map((plan) => {
@@ -944,7 +907,6 @@ function PremiumContent() {
           </CardContent>
         </Card>
       ) : null}
->>>>>>> d762d5a (premium pages updated)
 
       {/* Payment Form */}
       {selectedPlan && (
